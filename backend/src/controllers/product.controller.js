@@ -7,6 +7,12 @@ async function createProduct(req, res) {
         if (req.file) {
             req.body.image = req.file.filename;
         }
+        if (req.file) {
+    req.body.image = req.file.filename;
+}
+
+console.log(req.body);
+console.log(req.file);
 
         const product = await productService.createProduct(req.body);
         res.status(201).json(product);

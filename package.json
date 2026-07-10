@@ -3,5 +3,8 @@
     "axios": "^1.18.1",
     "multer": "^2.2.0",
     "react-router-dom": "^7.18.1"
+  },
+  "devDependencies": {
+    "msw": "^2.15.0"
   }
 }

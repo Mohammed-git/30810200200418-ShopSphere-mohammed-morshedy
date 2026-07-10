@@ -1,34 +1,30 @@
 import { useState } from "react";
-import { login } from "../services/authService";
+import { register } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Register() {
 
     const navigate = useNavigate();
 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    async function handleLogin(e) {
+    async function handleRegister(e) {
 
         e.preventDefault();
 
         try {
 
-            const data = await login(email, password);
+            await register(name, email, password);
 
-            
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
+            alert("Account created successfully!");
 
-            alert("Login Successful!");
-
-            
-            navigate("/");
+            navigate("/login");
 
         } catch (error) {
 
-            alert(error.response?.data?.message || "Login Failed");
+            alert(error.response?.data?.message || "Register failed");
 
         }
 
@@ -40,10 +36,18 @@ function Login() {
 
         <form
             className="auth-card"
-            onSubmit={handleLogin}
+            onSubmit={handleRegister}
         >
 
-            <h1>Login</h1>
+            <h1>Register</h1>
+
+            <input
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
+
+            <br /><br />
 
             <input
                 type="email"
@@ -64,14 +68,15 @@ function Login() {
             <br /><br />
 
             <button type="submit">
-                Login
+                Register
             </button>
 
         </form>
 
-</div>
+    </div>
 
-);
+    );
+
 }
 
-export default Login;
+export default Register;
