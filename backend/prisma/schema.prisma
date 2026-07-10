@@ -9,6 +9,7 @@ datasource db {
 }
 
 model User {
+  cartItems Cart[]
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
@@ -20,6 +21,7 @@ model User {
 }
 
 model Product {
+  cartItems Cart[]
   id          Int      @id @default(autoincrement())
   name        String
   description String
@@ -55,4 +57,17 @@ model OrderItem {
 
   order     Order   @relation(fields: [orderId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
+}
+model Cart {
+  id        Int      @id @default(autoincrement())
+
+  quantity  Int      @default(1)
+
+  userId    Int
+  productId Int
+
+  user       User    @relation(fields: [userId], references: [id])
+  product    Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
 }
