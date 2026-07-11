@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+
   postgres:
     image: postgres:16
     container_name: ecommerce-postgres
@@ -27,6 +28,35 @@ services:
 
     volumes:
       - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: ecommerce-backend
+    restart: always
+
+    ports:
+      - "5000:5000"
+
+    environment:
+      PORT: 5000
+      JWT_SECRET: mySuperSecretKey
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/ecommerce?schema=public
+      MONGO_URI: mongodb://mongodb:27017/ecommerce
+
+    depends_on:
+      - postgres
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    container_name: ecommerce-frontend
+    restart: always
+
+    ports:
+      - "5173:5173"
+
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
