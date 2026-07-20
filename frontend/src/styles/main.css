@@ -173,7 +173,11 @@ button{
 
     height:220px;
 
-    object-fit:cover;
+    object-fit:contain;
+
+    background:#fff;
+
+    display:block;
 
 }
 
@@ -192,6 +196,11 @@ button{
 .product-card p{
 
     margin:8px 0;
+
+}
+.product-card{
+
+    overflow:hidden;
 
 }
 
@@ -575,5 +584,187 @@ button{
 .admin-card button:hover{
 
     background:#1d4ed8;
+
+}
+/* ================= HOME PAGE ================= */
+
+.home-page{
+
+    min-height:80vh;
+
+}
+
+.home-hero{
+
+    text-align:center;
+
+    padding:90px 20px;
+
+}
+
+.home-hero h1{
+
+    font-size:3rem;
+
+    margin-bottom:20px;
+
+}
+
+.home-hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:#ffffff;
+
+    font-size:1.1rem;
+
+    line-height:1.8;
+
+}
+
+.browse-btn{
+
+    display:inline-block;
+
+    margin-top:35px;
+
+    padding:14px 28px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.browse-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+
+}
+
+.categories{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:60px auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+    gap:25px;
+
+}
+
+.category-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.category-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.category-icon{
+
+    font-size:3rem;
+
+    margin-bottom:15px;
+
+}
+
+.category-card h2{
+
+    margin-bottom:12px;
+
+}
+
+.category-card p{
+
+    color:#666;
+
+    line-height:1.6;
+
+}
+/* ===== Promotion Banner ===== */
+
+.promotion-banner{
+
+    width:90%;
+
+    max-width:1100px;
+
+    margin:50px auto;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.promotion-banner h2{
+
+    margin-bottom:10px;
+
+}
+
+.featured-section{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:70px auto;
+
+}
+
+.featured-section h2{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+.featured-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
 
 }

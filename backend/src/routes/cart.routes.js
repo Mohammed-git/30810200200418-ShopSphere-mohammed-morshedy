@@ -10,11 +10,19 @@ router.post(
     authenticate,
     cartController.addToCart
 );
+
 router.get(
     "/",
     authenticate,
     cartController.getCart
 );
+
+router.put(
+    "/:id",
+    authenticate,
+    cartController.updateQuantity
+);
+
 router.delete(
     "/:id",
     authenticate,

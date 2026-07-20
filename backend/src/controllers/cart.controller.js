@@ -5,13 +5,9 @@ async function addToCart(req, res) {
     try {
 
         const cart = await cartService.addToCart(
-
             req.user.id,
-
             req.body.productId,
-
             req.body.quantity
-
         );
 
         res.status(201).json(cart);
@@ -19,14 +15,13 @@ async function addToCart(req, res) {
     } catch (error) {
 
         res.status(400).json({
-
             message: error.message
-
         });
 
     }
 
 }
+
 async function getCart(req, res) {
 
     try {
@@ -44,6 +39,29 @@ async function getCart(req, res) {
     }
 
 }
+
+async function updateQuantity(req, res) {
+
+    try {
+
+        const cart = await cartService.updateQuantity(
+            req.user.id,
+            req.params.id,
+            req.body.quantity
+        );
+
+        res.json(cart);
+
+    } catch (error) {
+
+        res.status(400).json({
+            message: error.message
+        });
+
+    }
+
+}
+
 async function removeFromCart(req, res) {
 
     try {
@@ -68,5 +86,6 @@ async function removeFromCart(req, res) {
 module.exports = {
     addToCart,
     getCart,
+    updateQuantity,
     removeFromCart
 };

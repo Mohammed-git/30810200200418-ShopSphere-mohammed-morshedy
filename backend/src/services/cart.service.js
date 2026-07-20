@@ -12,7 +12,27 @@ async function addToCart(userId, productId, quantity = 1) {
         throw new Error("Product not found");
     }
 
-    const cartItem = await prisma.cart.create({
+    const existingItem = await prisma.cart.findFirst({
+        where: {
+            userId,
+            productId: Number(productId)
+        }
+    });
+
+    if (existingItem) {
+
+        return await prisma.cart.update({
+            where: {
+                id: existingItem.id
+            },
+            data: {
+                quantity: existingItem.quantity + Number(quantity)
+            }
+        });
+
+    }
+
+    return await prisma.cart.create({
         data: {
             userId,
             productId: Number(productId),
@@ -20,11 +40,11 @@ async function addToCart(userId, productId, quantity = 1) {
         }
     });
 
-    return cartItem;
 }
+
 async function getCart(userId) {
 
-    const cart = await prisma.cart.findMany({
+    const items = await prisma.cart.findMany({
 
         where: {
             userId
@@ -36,8 +56,49 @@ async function getCart(userId) {
 
     });
 
-    return cart;
+    const total = items.reduce((sum, item) => {
+
+        return sum + item.quantity * item.product.price;
+
+    }, 0);
+
+    return {
+        items,
+        total
+    };
+
 }
+
+async function updateQuantity(userId, cartId, quantity) {
+
+    const cartItem = await prisma.cart.findUnique({
+        where: {
+            id: Number(cartId)
+        }
+    });
+
+    if (!cartItem) {
+        throw new Error("Cart item not found");
+    }
+
+    if (cartItem.userId !== userId) {
+        throw new Error("Unauthorized");
+    }
+
+    return await prisma.cart.update({
+
+        where: {
+            id: Number(cartId)
+        },
+
+        data: {
+            quantity: Number(quantity)
+        }
+
+    });
+
+}
+
 async function removeFromCart(userId, cartId) {
 
     const cartItem = await prisma.cart.findUnique({
@@ -63,9 +124,12 @@ async function removeFromCart(userId, cartId) {
     return {
         message: "Item removed from cart"
     };
+
 }
+
 module.exports = {
     addToCart,
     getCart,
+    updateQuantity,
     removeFromCart
 };

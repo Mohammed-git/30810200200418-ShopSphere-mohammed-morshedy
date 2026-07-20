@@ -18,55 +18,80 @@ function Navbar() {
 
         <nav className="navbar">
 
-    <div className="container navbar-content">
+            <div className="container navbar-content">
 
-        <h2 className="logo">
-            TechStore
-        </h2>
+                <h2 className="logo">
 
-        <div className="nav-links">
-
-            <Link to="/">Home</Link>
-
-<Link to="/cart">Cart</Link>
-
-{
-    user?.role === "admin" && (
-
-        <Link to="/admin">
-
-            Admin
-
-        </Link>
-
-    )
-}
-
-            {
-                token ? (
-
-                    <button
-                        className="logout-btn"
-                        onClick={logout}
+                    <Link
+                        to="/"
+                        style={{
+                            textDecoration: "none",
+                            color: "inherit"
+                        }}
                     >
-                        Logout
-                    </button>
+                        TechStore
+                    </Link>
 
-                ) : (
+                </h2>
 
-                    <>
-                        <Link to="/login">Login</Link>
-                        <Link to="/register">Register</Link>
-                    </>
+                <div className="nav-links">
 
-                )
-            }
+                    <Link to="/">Home</Link>
 
-        </div>
+                    <Link to="/products">
+                        Products
+                    </Link>
 
-    </div>
+                    <Link to="/cart">
+                        Cart
+                    </Link>
 
-</nav>
+                    {
+                        user?.role === "admin" && (
+
+                            <Link to="/admin">
+
+                                Admin
+
+                            </Link>
+
+                        )
+                    }
+
+                    {
+
+                        token ? (
+
+                            <button
+                                className="logout-btn"
+                                onClick={logout}
+                            >
+                                Logout
+                            </button>
+
+                        ) : (
+
+                            <>
+
+                                <Link to="/login">
+                                    Login
+                                </Link>
+
+                                <Link to="/register">
+                                    Register
+                                </Link>
+
+                            </>
+
+                        )
+
+                    }
+
+                </div>
+
+            </div>
+
+        </nav>
 
     );
 

@@ -1,4 +1,5 @@
 import { addToCart } from "../services/cartService";
+import { Link } from "react-router-dom";
 function ProductCard({ product }) {
     
     async function handleAddToCart() {
@@ -20,16 +21,23 @@ function ProductCard({ product }) {
 
         <div className="product-card">
 
+    <Link to={`/products/${product.id}`}>
+
     <img
         src={`http://localhost:5000/uploads/${product.image}`}
         alt={product.name}
         className="product-image"
     />
 
-    <div className="product-info">
+</Link>
+
+<div className="product-info">
+
+    <Link to={`/products/${product.id}`}>
 
         <h2>{product.name}</h2>
 
+    </Link>
         <p><strong>Category:</strong> {product.category}</p>
 
         <p><strong>Price:</strong> {product.price} EGP</p>

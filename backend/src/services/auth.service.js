@@ -32,7 +32,12 @@ async function register(userData) {
         }
     });
 
-    return user;
+    return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role
+};
 }
 const jwt = require("jsonwebtoken");
 

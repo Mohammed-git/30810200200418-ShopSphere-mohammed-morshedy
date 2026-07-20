@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@tanstack/react-query": "^5.101.3",
     "axios": "^1.18.1",
     "multer": "^2.2.0",
     "react-router-dom": "^7.18.1"

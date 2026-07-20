@@ -52,9 +52,9 @@ function Admin() {
                 </p>
 
                 <button
-    onClick={() => alert("Use the Backend API to add products.")}
+    onClick={() => alert("This feature will be implemented in the next phase or use the api")}
 >
-    Add New Product
+    Coming Soon
 </button>
 
             </div>

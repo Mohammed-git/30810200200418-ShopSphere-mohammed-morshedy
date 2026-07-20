@@ -1,7 +1,7 @@
 const prisma = require("../config/prisma");
 
-
 async function createProduct(productData) {
+
     const {
         name,
         description,
@@ -27,10 +27,11 @@ async function createProduct(productData) {
     });
 
     return product;
+
 }
 
-
 async function getAllProducts(query) {
+
     const {
         search,
         category,
@@ -42,10 +43,22 @@ async function getAllProducts(query) {
     const where = {};
 
     if (search) {
-        where.name = {
-            contains: search,
-            mode: "insensitive"
-        };
+
+        where.OR = [
+            {
+                name: {
+                    contains: search,
+                    mode: "insensitive"
+                }
+            },
+            {
+                description: {
+                    contains: search,
+                    mode: "insensitive"
+                }
+            }
+        ];
+
     }
 
     if (category) {
@@ -55,25 +68,45 @@ async function getAllProducts(query) {
     const orderBy = {};
 
     if (sort === "price_asc") {
+
         orderBy.price = "asc";
+
     } else if (sort === "price_desc") {
+
         orderBy.price = "desc";
+
+    } else if (sort === "name_asc") {
+
+        orderBy.name = "asc";
+
+    } else if (sort === "name_desc") {
+
+        orderBy.name = "desc";
+
     } else {
+
         orderBy.createdAt = "desc";
+
     }
 
     const products = await prisma.product.findMany({
+
         where,
+
         orderBy,
+
         skip: (Number(page) - 1) * Number(limit),
+
         take: Number(limit)
+
     });
 
     return products;
+
 }
 
-
 async function getProductById(id) {
+
     const product = await prisma.product.findUnique({
         where: {
             id: Number(id)
@@ -85,7 +118,9 @@ async function getProductById(id) {
     }
 
     return product;
+
 }
+
 async function updateProduct(id, productData) {
 
     const product = await prisma.product.update({
