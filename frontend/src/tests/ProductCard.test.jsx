@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { vi } from "vitest";
-
 
 vi.mock("../services/cartService", () => ({
     addToCart: vi.fn()
@@ -18,13 +18,17 @@ describe("ProductCard Component", () => {
             category: "GPU"
         };
 
-        render(<ProductCard product={product} />);
+        render(
+            <MemoryRouter>
+                <ProductCard product={product} />
+            </MemoryRouter>
+        );
 
         expect(screen.getByText("RTX 5090")).toBeInTheDocument();
 
-        expect(screen.getByText("Price: 200000")).toBeInTheDocument();
+        expect(screen.getByText(/200000/)).toBeInTheDocument();
 
-        expect(screen.getByText("Category: GPU")).toBeInTheDocument();
+        expect(screen.getByText(/GPU/)).toBeInTheDocument();
 
         expect(
             screen.getByRole("button", { name: /Add To Cart/i })

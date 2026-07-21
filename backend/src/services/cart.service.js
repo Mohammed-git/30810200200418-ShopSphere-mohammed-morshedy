@@ -46,15 +46,19 @@ async function getCart(userId) {
 
     const items = await prisma.cart.findMany({
 
-        where: {
-            userId
-        },
+    where: {
+        userId
+    },
 
-        include: {
-            product: true
-        }
+    include: {
+        product: true
+    },
 
-    });
+    orderBy: {
+        id: "asc"
+    }
+
+});
 
     const total = items.reduce((sum, item) => {
 

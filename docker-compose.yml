@@ -42,6 +42,8 @@ services:
       JWT_SECRET: mySuperSecretKey
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/ecommerce?schema=public
       MONGO_URI: mongodb://mongodb:27017/ecommerce
+      EMAIL_USER: elaina.pfeffer99@ethereal.email
+      EMAIL_PASS: 6Bc1eM3rvkHcGM5w1A
 
     depends_on:
       - postgres

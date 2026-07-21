@@ -5,24 +5,26 @@ import {
     removeFromCart
 } from "../services/cartService";
 import { checkout } from "../services/orderService";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
-
+    const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
-
-        fetchCart();
-
+        fetchCart(true);
     }, []);
 
-    async function fetchCart() {
+    async function fetchCart(showLoading = true) {
 
         try {
 
-            setLoading(true);
+            if (showLoading) {
+                setLoading(true);
+            }
+
             setError("");
 
             const data = await getCart();
@@ -37,7 +39,9 @@ function Cart() {
 
         } finally {
 
-            setLoading(false);
+            if (showLoading) {
+                setLoading(false);
+            }
 
         }
 
@@ -51,7 +55,7 @@ function Cart() {
 
             await updateQuantity(cartId, quantity);
 
-            fetchCart();
+            await fetchCart(false);
 
         } catch (error) {
 
@@ -67,7 +71,7 @@ function Cart() {
 
             await removeFromCart(cartId);
 
-            fetchCart();
+            await fetchCart(false);
 
         } catch (error) {
 
@@ -87,7 +91,8 @@ function Cart() {
 
             console.log(order);
 
-            window.location.reload();
+            setCart([]);
+            navigate("/");
 
         } catch (error) {
 

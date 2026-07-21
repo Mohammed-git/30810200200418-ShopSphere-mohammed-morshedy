@@ -1,5 +1,6 @@
 const prisma = require("../config/prisma");
 const bcrypt = require("bcrypt");
+const emailService = require("./email.service");
 
 async function register(userData) {
     const { name, email, password } = userData;
@@ -25,14 +26,19 @@ async function register(userData) {
 
     // Save User
     const user = await prisma.user.create({
-        data: {
-            name,
-            email,
-            password: hashedPassword
-        }
-    });
+    data: {
+        name,
+        email,
+        password: hashedPassword
+    }
+});
 
-    return {
+await emailService.sendWelcomeEmail(
+    user.email,
+    user.name
+);
+
+return {
     id: user.id,
     name: user.name,
     email: user.email,

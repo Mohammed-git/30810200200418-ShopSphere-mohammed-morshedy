@@ -1,4 +1,5 @@
 const prisma = require("../config/prisma");
+const activityService = require("./activity.service");
 
 async function createProduct(productData) {
 
@@ -25,6 +26,12 @@ async function createProduct(productData) {
             image
         }
     });
+
+    await activityService.logActivity(
+        "CREATE_PRODUCT",
+        product.id,
+        null
+    );
 
     return product;
 
@@ -133,11 +140,23 @@ async function updateProduct(id, productData) {
 
     });
 
+    await activityService.logActivity(
+        "UPDATE_PRODUCT",
+        product.id,
+        null
+    );
+
     return product;
 
 }
 
 async function deleteProduct(id) {
+
+    await activityService.logActivity(
+        "DELETE_PRODUCT",
+        Number(id),
+        null
+    );
 
     await prisma.product.delete({
 
