@@ -130,13 +130,25 @@ async function getProductById(id) {
 
 async function updateProduct(id, productData) {
 
+    const updatedData = {
+        ...productData
+    };
+
+    if (updatedData.price !== undefined) {
+        updatedData.price = Number(updatedData.price);
+    }
+
+    if (updatedData.stock !== undefined) {
+        updatedData.stock = Number(updatedData.stock);
+    }
+
     const product = await prisma.product.update({
 
         where: {
             id: Number(id)
         },
 
-        data: productData
+        data: updatedData
 
     });
 
@@ -149,7 +161,6 @@ async function updateProduct(id, productData) {
     return product;
 
 }
-
 async function deleteProduct(id) {
 
     await activityService.logActivity(
