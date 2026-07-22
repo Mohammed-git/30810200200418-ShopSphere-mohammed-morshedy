@@ -45,6 +45,9 @@ services:
       EMAIL_USER: elaina.pfeffer99@ethereal.email
       EMAIL_PASS: 6Bc1eM3rvkHcGM5w1A
 
+    volumes:
+      - ./backend/uploads:/app/uploads
+
     depends_on:
       - postgres
       - mongodb

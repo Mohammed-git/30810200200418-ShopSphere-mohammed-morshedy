@@ -1,12 +1,13 @@
 import api from "./api";
 
-// جلب كل المنتجات
 export async function getProducts() {
-    const response = await api.get("/products");
+    const response = await api.get("/products", {
+        params: { limit: 1000 }
+    });
     return response.data;
 }
 
-// إضافة منتج جديد (بيقبل FormData عشان رفع الصورة)
+
 export async function createProduct(formData) {
     const response = await api.post("/products", formData, {
         headers: {

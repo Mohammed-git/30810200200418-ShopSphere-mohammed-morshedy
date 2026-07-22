@@ -27,12 +27,13 @@ function Admin() {
     });
 
     useEffect(() => {
-        fetchProductsList();
+        fetchProductsList(true);
     }, []);
 
-    const fetchProductsList = async () => {
+    const fetchProductsList = async (isInitialLoad = false) => {
         try {
-            setLoading(true);
+            if (isInitialLoad) setLoading(true);
+
             const data = await getProducts();
             const list = Array.isArray(data) ? data : (data.products || []);
             setProducts(list);
@@ -40,7 +41,7 @@ function Admin() {
         } catch (err) {
             setError("Failed to load products: " + (err.response?.data?.message || err.message));
         } finally {
-            setLoading(false);
+            if (isInitialLoad) setLoading(false);
         }
     };
 
@@ -71,7 +72,7 @@ function Admin() {
             name: product.name,
             description: product.description,
             price: product.price,
-            category: product.category,
+            category: product.category || "",
             stock: product.stock,
             image: null
         });
@@ -94,7 +95,7 @@ function Admin() {
                 };
 
                 await updateProduct(editingId, payload);
-                setSuccessMsg("The product has been successfully updated!");
+                setSuccessMsg("Product updated successfully!");
             } else {
                 const data = new FormData();
                 data.append("name", formData.name);
@@ -107,15 +108,13 @@ function Admin() {
                 }
 
                 await createProduct(data);
-                setSuccessMsg(
-    "Product added successfully!"
-);
+                setSuccessMsg("Product added successfully!");
             }
 
             resetForm();
-            fetchProductsList();
+            fetchProductsList(false);
         } catch (err) {
-            setError(err.response?.data?.message || "An error occurred while executing the operation.");
+            setError(err.response?.data?.message || "An error occurred while processing your request.");
         }
     };
 
@@ -125,10 +124,10 @@ function Admin() {
         try {
             setError("");
             await deleteProduct(id);
-            setSuccessMsg("The product has been successfully deleted!");
-            fetchProductsList();
+            setSuccessMsg("Product deleted successfully!");
+            fetchProductsList(false);
         } catch (err) {
-            setError(err.response?.data?.message || "Failed to delete the product.");
+            setError(err.response?.data?.message || "Failed to delete product.");
         }
     };
 
@@ -152,12 +151,12 @@ function Admin() {
                     <p className="stat-number">{totalProducts}</p>
                 </div>
                 <div className="stat-card">
-                    <h3>Total Stock</h3>
+                    <h3>Total Inventory Units</h3>
                     <p className="stat-number">{totalStock}</p>
                 </div>
                 <div className="stat-card">
-                    <h3>Total Inventory Value</h3>
-                    <p className="stat-number">EGP{totalValue.toFixed(2)}</p>
+                    <h3>Total Store Value</h3>
+                    <p className="stat-number">${totalValue.toFixed(2)}</p>
                 </div>
             </div>
 
@@ -167,11 +166,12 @@ function Admin() {
 
             {/* Form Section */}
             <div className="admin-card">
-                <h2>{editingId ? "Edit Product Details" : "Add New Product"}</h2>
+                <h2>{editingId ? "Edit Product" : "Add New Product"}</h2>
                 <form onSubmit={handleSubmit} className="admin-form">
                     <div className="form-group">
                         <label>Product Name:</label>
                         <input 
+                            type="text" 
                             name="name" 
                             value={formData.name} 
                             onChange={handleChange} 
@@ -180,7 +180,7 @@ function Admin() {
                     </div>
 
                     <div className="form-group">
-                        <label>Product Description:</label>
+                        <label>Description:</label>
                         <textarea 
                             name="description" 
                             value={formData.description} 
@@ -192,7 +192,7 @@ function Admin() {
 
                     <div className="form-row">
                         <div className="form-group">
-                            <label>Price (EGP):</label>
+                            <label>Price ($):</label>
                             <input 
                                 type="number" 
                                 step="0.01" 
@@ -220,7 +220,7 @@ function Admin() {
                         </div>
 
                         <div className="form-group">
-                            <label>Stock:</label>
+                            <label>Stock Quantity:</label>
                             <input 
                                 type="number" 
                                 name="stock" 
@@ -233,7 +233,7 @@ function Admin() {
 
                     {!editingId && (
                         <div className="form-group">
-                            <label>Product image:</label>
+                            <label>Product Image:</label>
                             <input 
                                 type="file" 
                                 accept="image/*" 
@@ -249,7 +249,7 @@ function Admin() {
                         </button>
                         {editingId && (
                             <button type="button" onClick={resetForm} className="btn-secondary">
-                                Cancel Edit
+                                Cancel
                             </button>
                         )}
                     </div>
@@ -258,18 +258,18 @@ function Admin() {
 
             {/* Products Table Section */}
             <div className="admin-card">
-                <h2>Manage Store Products</h2>
+                <h2>Manage Products</h2>
                 {loading ? (
                     <p>Loading products...</p>
                 ) : products.length === 0 ? (
-                    <p>No products added yet.</p>
+                    <p>No products found.</p>
                 ) : (
                     <div className="admin-table-container">
                         <table className="admin-table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Product Name</th>
+                                    <th>Name</th>
                                     <th>Category</th>
                                     <th>Price</th>
                                     <th>Stock</th>
@@ -282,7 +282,7 @@ function Admin() {
                                         <td>#{prod.id}</td>
                                         <td><strong>{prod.name}</strong></td>
                                         <td>{prod.category}</td>
-                                        <td>EGP{prod.price.toFixed(2)}</td>
+                                        <td>${prod.price}</td>
                                         <td>
                                             <span className={`badge ${prod.stock > 0 ? "badge-success" : "badge-danger"}`}>
                                                 {prod.stock} units

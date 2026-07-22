@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { getProducts } from "../services/productService";
 import ProductCard from "../components/ProductCard";
 
@@ -11,8 +11,9 @@ function Products() {
     const [page, setPage] = useState(1);
 
     const {
-        data: products = [],
-        isLoading: loading,
+        data: rawData = [],
+        isLoading,
+        isFetching,
         error
     } = useQuery({
 
@@ -30,28 +31,31 @@ function Products() {
                 category,
                 sort,
                 page
-            )
+            ),
+
+        // الخاصية دي بتمنع إخفاء الشاشة والـ Refresh السريع عند تغيير السيرش أو الفلترة
+        placeholderData: keepPreviousData
 
     });
 
-    if (loading) {
+    // التعامل مع راجع البيانات سوا كانت Array مباشرة أو Object
+    const products = Array.isArray(rawData) ? rawData : (rawData.products || []);
 
+    // التحميل أول مرة خالص فقط عند فتح الصفحة
+    if (isLoading) {
         return (
             <div className="container">
                 <h2>Loading Products...</h2>
             </div>
         );
-
     }
 
     if (error) {
-
         return (
             <div className="container">
                 <h2>Failed to load products.</h2>
             </div>
         );
-
     }
 
     return (
@@ -133,20 +137,23 @@ function Products() {
 
             </div>
 
-            {
-                products.length === 0
+            {/* أثناء التحميل في الخلفية بنعمل شفافية بسيطة بدون ما نخفي المنتجات */}
+            <div style={{ opacity: isFetching ? 0.7 : 1, transition: "opacity 0.2s" }}>
+                {
+                    products.length === 0
 
-                    ? <p>No products found.</p>
+                        ? <p>No products found.</p>
 
-                    : products.map((product) => (
+                        : products.map((product) => (
 
-                        <ProductCard
-                            key={product.id}
-                            product={product}
-                        />
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                            />
 
-                    ))
-            }
+                        ))
+                }
+            </div>
 
             <br />
 
@@ -166,6 +173,7 @@ function Products() {
             </span>
 
             <button
+                disabled={products.length === 0}
                 onClick={() => setPage(page + 1)}
             >
                 Next
