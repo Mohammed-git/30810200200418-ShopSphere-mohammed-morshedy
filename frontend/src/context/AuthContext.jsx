@@ -28,10 +28,12 @@ export function AuthProvider({ children }) {
 
     function logout() {
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-        setUser(null);
+    setUser(null);
+
+    window.location.href = "/login";
 
     }
 

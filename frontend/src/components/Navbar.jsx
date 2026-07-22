@@ -1,19 +1,14 @@
 import { Link } from "react-router-dom";
 
+import { useAuth } from "../context/AuthContext";
+
 function Navbar() {
 
+    const { user, logout } = useAuth();
+
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
 
-    function logout() {
-
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-
-        window.location.href = "/login";
-
-    }
-
+    
     return (
 
         <nav className="navbar">
