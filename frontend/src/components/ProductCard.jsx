@@ -24,11 +24,10 @@ function ProductCard({ product }) {
     <Link to={`/products/${product.id}`}>
 
     <img
-        src={`http://localhost:5000/uploads/${product.image}`}
-        alt={product.name}
-        className="product-image"
+    src={`http://localhost:5000/uploads/${product.image}`}
+    alt={product.name}
+    className="product-image"
     />
-
 </Link>
 
 <div className="product-info">
