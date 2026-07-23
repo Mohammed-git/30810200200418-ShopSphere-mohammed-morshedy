@@ -102,7 +102,7 @@ ecommerce-platform
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/Mohammed-git/ecommerce-platform.git
+git clone https://github.com/Mohammed-git/fullstack-ecommerce-mohammed-morshedy
 cd ecommerce-platform
 ```
 
@@ -186,7 +186,7 @@ docker compose up --build
 
 GitHub Repository:
 
-https://github.com/Mohammed-git/ecommerce-platform
+https://github.com/Mohammed-git/fullstack-ecommerce-mohammed-morshedy
 
 ---
 
