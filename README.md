@@ -285,6 +285,11 @@ Install dependencies.
 npm install
 ```
 
+```bash
+# Generate Prisma Client (!!Very Important & Required!!)
+npx prisma generate
+```
+
 Run tests.
 
 ```bash
@@ -324,7 +329,33 @@ cd backend
 
 npm install
 
+# Create a .env file from .env.example
+# and update the required environment variables
+
+# Generate Prisma Client (Required)
+npx prisma generate
+
+# Apply database migrations
+npx prisma migrate deploy
+
+# Seed the database (Creates demo accounts)
+npx prisma db seed
+
+# Start the backend
 npm run dev
+```
+
+```bash
+## ⚠️ Important
+
+If this is your **first time cloning** the repository, you **must generate the Prisma Client** before starting the backend or running the backend tests.
+
+```bash
+npx prisma generate
+```
+
+> **Note:**  
+> The Prisma Client is generated locally and is **not included** in this repository. The generated files (`backend/src/generated/prisma`) are ignored by Git, so this command only needs to be run after a fresh clone or whenever the Prisma schema changes.
 ```
 
 ---
