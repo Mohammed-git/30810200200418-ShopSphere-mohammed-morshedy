@@ -162,23 +162,26 @@ async function updateProduct(id, productData) {
 
 }
 async function deleteProduct(id) {
+    const productId = Number(id);
+
+    await prisma.cart.deleteMany({
+        where: {
+            productId: productId
+        }
+    });
 
     await activityService.logActivity(
         "DELETE_PRODUCT",
-        Number(id),
+        productId,
         null
     );
 
-    await prisma.product.delete({
-
+    return await prisma.product.delete({
         where: {
-            id: Number(id)
+            id: productId
         }
-
     });
-
 }
-
 module.exports = {
 
     createProduct,
