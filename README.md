@@ -295,6 +295,18 @@ Run tests.
 ```bash
 npm test
 ```
+```bash
+## ⚠️ Important
+
+If this is your **first time cloning** the repository, you **must generate the Prisma Client** before starting the backend or running the backend tests.
+
+```bash
+npx prisma generate
+```
+
+> **Note:**  
+> The Prisma Client is generated locally and is **not included** in this repository. The generated files (`backend/src/generated/prisma`) are ignored by Git, so this command only needs to be run after a fresh clone or whenever the Prisma schema changes.
+```
 
 ---
 
@@ -343,19 +355,6 @@ npx prisma db seed
 
 # Start the backend
 npm run dev
-```
-
-```bash
-## ⚠️ Important
-
-If this is your **first time cloning** the repository, you **must generate the Prisma Client** before starting the backend or running the backend tests.
-
-```bash
-npx prisma generate
-```
-
-> **Note:**  
-> The Prisma Client is generated locally and is **not included** in this repository. The generated files (`backend/src/generated/prisma`) are ignored by Git, so this command only needs to be run after a fresh clone or whenever the Prisma schema changes.
 ```
 
 ---
