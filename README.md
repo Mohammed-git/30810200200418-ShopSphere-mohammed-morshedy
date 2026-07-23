@@ -103,7 +103,7 @@ ecommerce-platform
 
 ```bash
 git clone https://github.com/Mohammed-git/fullstack-ecommerce-mohammed-morshedy
-cd ecommerce-platform
+cd fullstack-ecommerce-mohammed-morshedy
 ```
 
 ## Run with Docker (Recommended)
