@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "jest"
-  },
+  "postinstall": "prisma generate",
+  "start": "node src/server.js",
+  "dev": "nodemon src/server.js",
+  "test": "jest"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
