@@ -156,7 +156,7 @@ function Admin() {
                 </div>
                 <div className="stat-card">
                     <h3>Total Store Value</h3>
-                    <p className="stat-number">${totalValue.toFixed(2)}</p>
+                    <p className="stat-number">EGP{totalValue.toFixed(2)}</p>
                 </div>
             </div>
 
@@ -192,7 +192,7 @@ function Admin() {
 
                     <div className="form-row">
                         <div className="form-group">
-                            <label>Price ($):</label>
+                            <label>Price (EGP):</label>
                             <input 
                                 type="number" 
                                 step="0.01" 
@@ -282,7 +282,7 @@ function Admin() {
                                         <td>#{prod.id}</td>
                                         <td><strong>{prod.name}</strong></td>
                                         <td>{prod.category}</td>
-                                        <td>${prod.price}</td>
+                                        <td>EGP{prod.price.toFixed(2)}</td>
                                         <td>
                                             <span className={`badge ${prod.stock > 0 ? "badge-success" : "badge-danger"}`}>
                                                 {prod.stock} units
