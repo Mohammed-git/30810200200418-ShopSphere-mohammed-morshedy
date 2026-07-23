@@ -1,180 +1,377 @@
 # Full-Stack E-Commerce Platform
 
-A full-stack E-Commerce platform developed as the **First Term Capstone Project** for the **Digital Egypt Cubs Initiative**.
+A complete Full-Stack E-Commerce Platform developed as the **Capstone Project** for the **Digital Egypt Cubs Initiative (DECI)**.
 
-## Features
-
-### Authentication
-
-* User Registration
-* User Login
-* JWT Authentication
-* Protected Routes
-* Customer & Admin Roles
-* Welcome Email
-
-### Product Management
-
-* Product CRUD Operations
-* Product Search
-* Product Filtering
-* Product Sorting
-* Pagination
-* Product Image Upload
-
-### Shopping
-
-* Shopping Cart
-* Checkout System
-* Order Management
-
-### Additional Backend Features
-
-* Product Reviews (MongoDB)
-* Activity Logs (MongoDB)
-* Store Statistics API
-* Database Seed Script
-
-### Testing
-
-* Jest Unit Tests
-* Supertest Integration Tests
-* React Testing Library
-* Mock Service Worker (MSW)
-
-### DevOps
-
-* Docker
-* Docker Compose
+The project allows users to browse products, search, filter, add items to the shopping cart, place orders, while providing an Admin Dashboard to manage products.
 
 ---
 
-# Tech Stack
+# Features
 
-## Frontend
+## Authentication
 
-* React
-* React Router
-* React Query
-* Axios
-* Vite
+- User Registration
+- User Login
+- JWT Authentication
+- Protected Routes
+- Admin & Customer Roles
+- Welcome Email
 
-## Backend
+## Product Management
 
-* Node.js
-* Express.js
-* Prisma ORM
-* PostgreSQL
-* MongoDB
-* JWT
-* Multer
-* Bcrypt
-* Nodemailer
+- Create Product
+- Update Product
+- Delete Product
+- Product Search
+- Product Filter
+- Product Sorting
+- Pagination
+- Product Image Upload
+
+## Shopping
+
+- Shopping Cart
+- Checkout
+- Order Management
+
+## Additional Features
+
+- Product Reviews (MongoDB)
+- Activity Logs (MongoDB)
+- Store Statistics API
+- Database Seed
 
 ## Testing
 
-* Jest
-* Supertest
-* React Testing Library
-* MSW
+- Jest
+- Supertest
+- Vitest
+- React Testing Library
+- Mock Service Worker (MSW)
 
 ## DevOps
 
-* Docker
-* Docker Compose
+- Docker
+- Docker Compose
+
+---
+
+# Technologies Used
+
+## Frontend
+
+- React
+- React Router
+- React Query
+- Axios
+- Vite
+
+## Backend
+
+- Node.js
+- Express.js
+- Prisma ORM
+- PostgreSQL
+- MongoDB
+- JWT
+- Multer
+- Nodemailer
+- Bcrypt
+
+## Testing
+
+- Jest
+- Supertest
+- Vitest
+- React Testing Library
+- MSW
 
 ---
 
 # Project Structure
 
 ```text
-ecommerce-platform
-├── backend
+fullstack-ecommerce-mohammed-morshedy
+│
 ├── frontend
+│
+├── backend
+│
 ├── docker-compose.yml
-└── README.md
+│
+├── README.md
+│
+└── README.txt
 ```
+
+---
+
+# Project URLs
+
+Frontend
+
+http://localhost:5173
+
+Backend API
+
+http://localhost:5000/api
+
+Health Check
+
+http://localhost:5000/
+
+---
+
+# Requirements
+
+Before running the project, make sure you have installed:
+
+- Git
+- Docker Desktop
+
+Docker Desktop must be running before starting the project.
 
 ---
 
 # Getting Started
 
-## Clone the Repository
+## Step 1 - Clone the Repository
+
+Open Terminal (or CMD) and run:
 
 ```bash
-git clone https://github.com/Mohammed-git/fullstack-ecommerce-mohammed-morshedy
+git clone https://github.com/Mohammed-git/fullstack-ecommerce-mohammed-morshedy.git
+```
+
+---
+
+## Step 2 - Open the Project Folder
+
+```bash
 cd fullstack-ecommerce-mohammed-morshedy
 ```
 
-## Run with Docker (Recommended)
+---
+
+## Step 3 - Configure Environment Variables
+
+Inside the backend folder:
+
+1. Copy the file
+
+```
+.env.example
+```
+
+2. Rename the copied file to
+
+```
+.env
+```
+
+3. Open the new `.env` file.
+
+4. Replace the placeholder values with your own configuration.
+
+Example:
+
+```env
+PORT=5000
+
+DATABASE_URL=postgresql://postgres:postgres@postgres:5432/ecommerce?schema=public
+
+MONGO_URI=mongodb://mongodb:27017/ecommerce
+
+JWT_SECRET=your-secret-key
+
+EMAIL_USER=your-email@example.com
+
+EMAIL_PASS=your-email-password
+```
+
+> **Note**
+>
+> EMAIL_USER and EMAIL_PASS are only required if you want Welcome Emails to be sent.
+>
+> Placeholder values in `.env.example` are provided for reference only.
+
+---
+
+# Run the Project
+
+From the project root run:
 
 ```bash
 docker compose up --build
 ```
 
-The application will be available at:
+The first build may take a few minutes.
 
-* Frontend: http://localhost:5173
-* Backend API: http://localhost:5000/api
+Docker will automatically:
+
+- Build Frontend
+- Build Backend
+- Start PostgreSQL
+- Start MongoDB
+- Seed the Database
+
+When the process finishes you can open:
+
+Frontend
+
+http://localhost:5173
 
 ---
 
-## Run Without Docker
+# Seed Data
 
-### Backend
+The database is automatically populated with sample data including:
 
-```bash
-cd backend
-npm install
-npm run dev
+- Admin Account
+- Customer Account
+- Sample Products
+
+No manual database setup is required.
+
+---
+
+# Test Accounts
+
+## Admin Account
+
+Email
+
+```
+mohamed@test.com
 ```
 
-### Frontend
+Password
 
-```bash
-cd frontend
-npm install
-npm run dev
+```
+123456
+```
+
+---
+
+## Customer Account
+
+Email
+
+```
+ahmed@test.com
+```
+
+Password
+
+```
+123456
 ```
 
 ---
 
 # Running Tests
 
-### Backend
+## Backend Tests
+
+Open a new terminal.
 
 ```bash
 cd backend
-npm test
 ```
 
-### Frontend
+Install dependencies.
 
 ```bash
-cd frontend
+npm install
+```
+
+Run tests.
+
+```bash
 npm test
 ```
 
 ---
 
-# Database
+## Frontend Tests
 
-The project uses two databases:
+Open another terminal.
 
-* **PostgreSQL** with Prisma ORM for application data.
-* **MongoDB** for Product Reviews and Activity Logs.
+```bash
+cd frontend
+```
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+Run tests.
+
+```bash
+npm test
+```
+
+---
+
+# Running Without Docker
+
+## Backend
+
+```bash
+cd backend
+
+npm install
+
+npm run dev
+```
+
+---
+
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+# Databases
+
+This project uses two databases.
+
+## PostgreSQL
+
+Stores:
+
+- Users
+- Products
+- Orders
+- Cart
+
+## MongoDB
+
+Stores:
+
+- Product Reviews
+- Activity Logs
 
 ---
 
 # Docker
 
-The project includes:
+The project contains:
 
-* Dockerfile for Backend
-* Dockerfile for Frontend
-* Docker Compose configuration
+- Backend Dockerfile
+- Frontend Dockerfile
+- docker-compose.yml
 
-Run everything using:
+Everything can be started using one command:
 
 ```bash
 docker compose up --build
@@ -182,9 +379,18 @@ docker compose up --build
 
 ---
 
-# Repository
+# Important Notes
 
-GitHub Repository:
+- The project is designed to run using Docker Compose.
+- Uploaded images are stored inside `backend/uploads`.
+- The database is automatically seeded on first startup.
+- Docker Desktop must be running before executing Docker commands.
+- Never commit your real `.env` file.
+- Use `.env.example` as the environment template.
+
+---
+
+# Repository
 
 https://github.com/Mohammed-git/fullstack-ecommerce-mohammed-morshedy
 
@@ -192,4 +398,4 @@ https://github.com/Mohammed-git/fullstack-ecommerce-mohammed-morshedy
 
 # License
 
-This project was developed for educational purposes as part of the **Digital Egypt Cubs Initiative**.
+This project was developed for educational purposes as part of the **Digital Egypt Cubs Initiative (DECI)**.

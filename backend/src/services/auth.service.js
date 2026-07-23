@@ -33,11 +33,12 @@ async function register(userData) {
     }
 });
 
-await emailService.sendWelcomeEmail(
-    user.email,
-    user.name
-);
-
+if (process.env.NODE_ENV !== "test") {
+    await emailService.sendWelcomeEmail(
+        user.email,
+        user.name
+    );
+}
 return {
     id: user.id,
     name: user.name,
