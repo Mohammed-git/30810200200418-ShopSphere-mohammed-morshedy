@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// الـ Routes بتاعتك
+
 app.use("/api/stats", statsRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
   res.json({ message: "API is running" });
 });
 
-// 3. Middleware تسجيل الـ Errors (لازم يكون في آخخخخر الملف بعد كل الـ Routes)
+
 app.use((err, req, res, next) => {
   logger.error({
     message: err.message || 'Internal Server Error',
