@@ -408,6 +408,7 @@ docker compose up --build
 ```
 
 ---
+![UptimeRobot Monitoring](uptimerobot-dashboard.png)
 
 # Important Notes
 

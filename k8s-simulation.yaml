@@ -1,0 +1,125 @@
+---
+# 1. AWS Simulation Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aws-simulation
+---
+# AWS Frontend Pod & Service
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+  namespace: aws-simulation
+  labels:
+    app: frontend
+spec:
+  containers:
+  - name: frontend
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: aws-simulation
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+---
+# AWS Backend Pod & Service
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-pod
+  namespace: aws-simulation
+  labels:
+    app: backend
+spec:
+  containers:
+  - name: backend
+    image: hashicorp/http-echo
+    args:
+    - "-text=AWS Backend Healthy"
+    ports:
+    - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: aws-simulation
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 5678
+    targetPort: 5678
+
+---
+# 2. GCP Simulation Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gcp-simulation
+---
+# GCP Frontend Pod & Service
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+  namespace: gcp-simulation
+  labels:
+    app: frontend
+spec:
+  containers:
+  - name: frontend
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: gcp-simulation
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+---
+# GCP Backend Pod & Service
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-pod
+  namespace: gcp-simulation
+  labels:
+    app: backend
+spec:
+  containers:
+  - name: backend
+    image: hashicorp/http-echo
+    args:
+    - "-text=GCP Backend Healthy"
+    ports:
+    - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: gcp-simulation
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 5678
+    targetPort: 5678
