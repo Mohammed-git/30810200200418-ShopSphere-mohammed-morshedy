@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-  "start": "node src/server.js",
-  "dev": "nodemon src/server.js",
-  "test": "jest",
-  "build": "prisma generate"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "build": "prisma generate --schema=prisma/schema.prisma",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -38,4 +39,5 @@
     "schema": "prisma/schema.prisma",
     "seed": "node prisma/seed.js"
   }
+
 }
