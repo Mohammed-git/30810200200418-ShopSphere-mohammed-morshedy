@@ -6,24 +6,28 @@ const connectMongo = require("./config/mongo");
 
 const PORT = process.env.PORT || 5000;
 
-async function startServer() {
-  try {
-    await prisma.$connect();
-    console.log("✅ PostgreSQL connected");
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  async function startServer() {
+    try {
+      await prisma.$connect();
+      console.log("✅ PostgreSQL connected");
 
-    await connectMongo();
+      await connectMongo();
 
-    const server = app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-});
+      const server = app.listen(PORT, () => {
+        console.log(`🚀 Server is running on port ${PORT}`);
+      });
 
-server.on("error", (err) => {
-  console.error("❌ Listen Error:", err);
-});
-  } catch (error) {
-    console.error("❌ Failed to start server:", error.message);
-    process.exit(1);
+      server.on("error", (err) => {
+        console.error("❌ Listen Error:", err);
+      });
+    } catch (error) {
+      console.error("❌ Failed to start server:", error.message);
+      process.exit(1);
+    }
   }
+
+  startServer();
 }
-module.exports = app;
-startServer();
