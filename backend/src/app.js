@@ -48,7 +48,12 @@ app.get("/api/admin", authenticate, authorizeAdmin, (req, res) => {
         message: "Welcome Admin"
     });
 });
-
+app.get("/api/test", (req, res) => {
+    res.json({
+        message: "Backend is alive",
+        environment: process.env.NODE_ENV
+    });
+});
 app.get('/', (req, res) => {
   res.json({ message: "API is running" });
 });
