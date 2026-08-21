@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const logger = require('./utils/logger'); // 1. استدعاء الـ logger
-
 const orderRoutes = require("./routes/order.routes");
 const authRoutes = require('./routes/auth.routes'); 
 const productRoutes = require("./routes/product.routes");
@@ -12,14 +11,11 @@ const userRoutes = require("./routes/user.routes");
 const statsRoutes = require("./routes/stats.routes");
 const reviewRoutes = require("./routes/review.routes");
 const activityRoutes = require("./routes/activity.routes");
-
 const app = express();
-
+const path = require("path");
+app.use("/uploads", express.static(path.join("/tmp", "uploads")));
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
-
-// 2. Middleware تسجيل الـ Requests (بيتحط فوق قبل أي Route)
 app.use((req, res, next) => {
   logger.info({
     message: 'Incoming Request',
