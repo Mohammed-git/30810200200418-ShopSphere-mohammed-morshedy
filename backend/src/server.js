@@ -19,7 +19,6 @@ if (process.env.VERCEL) {
       const server = app.listen(PORT, () => {
         console.log(`🚀 Server is running on port ${PORT}`);
       });
-
       server.on("error", (err) => {
         console.error("❌ Listen Error:", err);
       });

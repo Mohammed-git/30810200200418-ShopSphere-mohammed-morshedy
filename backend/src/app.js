@@ -13,8 +13,18 @@ const reviewRoutes = require("./routes/review.routes");
 const activityRoutes = require("./routes/activity.routes");
 const app = express();
 const path = require("path");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false
+});
 app.use("/uploads", express.static(path.join("/tmp", "uploads")));
 app.use(cors());
+app.use(helmet());
+app.use(limiter);
 app.use(express.json());
 app.use((req, res, next) => {
   logger.info({
