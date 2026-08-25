@@ -420,6 +420,17 @@ docker compose up --build
 - Use `.env.example` as the environment template.
 
 ---
+# Production Logging
+
+The backend uses Winston for structured logging.
+
+Production logs can be viewed from:
+
+Vercel Dashboard → Backend Project → Logs / Runtime Logs
+
+The logs include:
+- Request entries with timestamp and severity level.
+- Error entries with timestamp and severity level.
 
 # Repository
 
